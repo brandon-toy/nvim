@@ -31,4 +31,5 @@ autocmd("BufWinEnter", {
 vim.keymap.set("n", "<leader>gd", "<cmd>Gdiffsplit!<CR>")
 vim.keymap.set("n", "<leader>gf", "<cmd>diffget 2<CR>")
 vim.keymap.set("n", "<leader>gj", "<cmd>diffget 3<CR>")
+vim.keymap.set("v", "<leader>gb", ":GBrowse<CR>")
 
