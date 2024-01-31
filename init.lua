@@ -1,3 +1,3 @@
 require("plugins")
-require("kanagawa").load("lotus")
+require("kanagawa").load("wave")
 require("plugins.set")

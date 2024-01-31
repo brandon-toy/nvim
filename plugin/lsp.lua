@@ -1,24 +1,5 @@
 local lsp_zero = require('lsp-zero')
 
-function bemol()
- local bemol_dir = vim.fs.find({ '.bemol' }, { upward = true, type = 'directory'})[1]
- local ws_folders_lsp = {}
- if bemol_dir then
-  local file = io.open(bemol_dir .. '/ws_root_folders', 'r')
-  if file then
-
-   for line in file:lines() do
-    table.insert(ws_folders_lsp, line)
-   end
-   file:close()
-  end
- end
-
- for _, line in ipairs(ws_folders_lsp) do
-  vim.lsp.buf.add_workspace_folder(line)
- end
-
-end
 
 lsp_zero.on_attach(function(client, bufnr)
   local opts = {buffer = bufnr, remap = false}
@@ -45,7 +26,7 @@ require('mason').setup()
 local mason_lspconfig = require 'mason-lspconfig'
 
 mason_lspconfig.setup {
-  ensure_installed = {'tsserver', 'markdown'}
+  ensure_installed = {'tsserver', 'jdtls'}
 }
 
 mason_lspconfig.setup_handlers {
@@ -71,27 +52,48 @@ cmp.setup({
   },
   formatting = lsp_zero.cmp_format(),
   mapping = cmp.mapping.preset.insert({
-    ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-    ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
+    ['<C-j>'] = cmp.mapping.select_prev_item(cmp_select),
+    ['<C-k>'] = cmp.mapping.select_next_item(cmp_select),
     ['<C-h>'] = cmp.mapping.confirm({ select = true }),
     ['<C-Space>'] = cmp.mapping.complete(),
   }),
 })
+-- 
+-- require 'lspconfig'.eslint.setup({
+--   settings = {
+--     packageManager = 'npm'
+--   },
+--   on_attach = function(client, bufnr)
+--     vim.api.nvim_create_autocmd("BufWritePre", {
+--       buffer = bufnr,
+--       command = "EslintFixAll",
+--     })
+--   end,
+-- })
 
-require 'lspconfig'.eslint.setup({
-  settings = {
-    packageManager = 'npm'
-  },
-  on_attach = function(client, bufnr)
-    vim.api.nvim_create_autocmd("BufWritePre", {
-      buffer = bufnr,
-      command = "EslintFixAll",
-    })
-  end,
-})
+-- server_name = 'tsserver' -- or whatever lsp you're using.
+-- require('lspconfig')[server_name].setup {
+  -- on_attach = on_attach,
+-- 
+-- }
+function bemol()
+ local bemol_dir = vim.fs.find({ '.bemol' }, { upward = true, type = 'directory'})[1]
+ local ws_folders_lsp = {}
+ if bemol_dir then
+  local file = io.open(bemol_dir .. '/ws_root_folders', 'r')
+  if file then
 
-server_name = 'tsserver' -- or whatever lsp you're using.
-require('lspconfig')[server_name].setup {
-  on_attach = on_attach,
-}
+   for line in file:lines() do
+    table.insert(ws_folders_lsp, line)
+   end
+   file:close()
+  end
+ end
 
+ for _, line in ipairs(ws_folders_lsp) do
+  vim.lsp.buf.add_workspace_folder(line)
+ end
+
+end
+
+bemol()
