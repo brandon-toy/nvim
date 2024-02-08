@@ -1,10 +1,13 @@
 vim.g.mapleader = " "
 
 vim.keymap.set({"n", "v"}, "<leader>y", [["+y]])
+vim.keymap.set("n", "<leader>qq", "<cmd>cclose<cr>")
 vim.keymap.set("v", "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 vim.keymap.set("n", "<leader>so", "<cmd>luafile $MYVIMRC<CR>")
 vim.keymap.set("v", "<leader>y", '"+y')
+vim.keymap.set("n", "<leader>e", "<cmd>lua vim.diagnostic.open_float(0, {scope='line'})<CR>")
+
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -24,6 +27,7 @@ return require('lazy').setup({
     {
         {
             "kawre/leetcode.nvim",
+            "ThePrimeagen/vim-be-good",
             build = ":TSUpdate html",
             dependencies = {
                 "nvim-telescope/telescope.nvim",

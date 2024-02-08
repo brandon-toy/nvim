@@ -25,3 +25,4 @@ require'nvim-treesitter.configs'.setup {
   },
 }
 
+vim.opt.smartindent = true
