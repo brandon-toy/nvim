@@ -86,6 +86,7 @@ return require('lazy').setup({
                 }
             end
         },
+        'ojroques/nvim-osc52',
         'Vimjas/vim-python-pep8-indent',
         'epwalsh/obsidian.nvim',
         'junegunn/fzf.vim',
