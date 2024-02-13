@@ -26,6 +26,37 @@ return require('lazy').setup({
     -- Lua
     {
         {
+            "epwalsh/obsidian.nvim",
+            version = "*",  -- recommended, use latest release instead of latest commit
+            lazy = true,
+            ft = "markdown",
+            -- Replace the above line with this if you only want to load obsidian.nvim for markdown files in your vault:
+            -- event = {
+            --   -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand'.
+            --   -- E.g. "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/**.md"
+            --   "BufReadPre path/to/my-vault/**.md",
+            --   "BufNewFile path/to/my-vault/**.md",
+            -- },
+            dependencies = {
+                -- Required.
+                "nvim-lua/plenary.nvim",
+
+                -- see below for full list of optional dependencies 👇
+            },
+            opts = {
+                workspaces = {
+                    {
+                        name = "aws",
+                        path = "~/aws",
+                    },
+                },
+                daily_notes = {
+                    folder="Daily Note/",
+                }
+                -- see below for full list of options 👇
+            },
+        },
+        {
             "kawre/leetcode.nvim",
             "ThePrimeagen/vim-be-good",
             build = ":TSUpdate html",
@@ -40,7 +71,7 @@ return require('lazy').setup({
             },
             opts = {
                 -- configuration goes here
-             lang = "python3"
+                lang = "python3"
             },
         },
         {
@@ -56,6 +87,7 @@ return require('lazy').setup({
             end
         },
         'Vimjas/vim-python-pep8-indent',
+        'epwalsh/obsidian.nvim',
         'junegunn/fzf.vim',
         'mbbill/undotree',
         'jinh0/eyeliner.nvim',
@@ -102,20 +134,20 @@ return require('lazy').setup({
                 {'williamboman/mason.nvim'},
                 {'williamboman/mason-lspconfig.nvim'},
 
-            -- LSP Support
-            {'neovim/nvim-lspconfig'},
-            -- Autocompletion
-            {'hrsh7th/nvim-cmp'},
-            {'hrsh7th/cmp-nvim-lsp'},
-            {'L3MON4D3/LuaSnip'},
-        }
-    },
+                -- LSP Support
+                {'neovim/nvim-lspconfig'},
+                -- Autocompletion
+                {'hrsh7th/nvim-cmp'},
+                {'hrsh7th/cmp-nvim-lsp'},
+                {'L3MON4D3/LuaSnip'},
+            }
+        },
 
-    {
-        'nvim-telescope/telescope.nvim', tag = '0.1.5',
-        -- or                            , branch = '0.1.x',
-        dependencies = { {'nvim-lua/plenary.nvim'} }
-    },
+        {
+            'nvim-telescope/telescope.nvim', tag = '0.1.5',
+            -- or                            , branch = '0.1.x',
+            dependencies = { {'nvim-lua/plenary.nvim'} }
+        },
 
     }
 })
